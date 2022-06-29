@@ -11,7 +11,6 @@ const Question = (props) => {
 
     let location = useLocation()
     let [option, setOption] = useState(null);
-    let [updateData, setUpdateData] = useState(null);
     let { questions, authUser, users } = props;
 
     if (!authUser) {
@@ -19,12 +18,10 @@ const Question = (props) => {
     }
     const questionID = location.state.id;
     let question = Object.values(questions).filter((q) => q.id === questionID)[0]
-    let userData  = Object.values(users).filter((u) => u.id === authUser.id)[0]
-    console.log('sdddsdsd[][]')
-    console.log(question)
+    let userData = Object.values(users).filter((u) => u.id === authUser.id)[0]
     let alreadyAnswered = Object.keys(userData.answers).includes(questionID)
     let optionAlreadySelected = null;
-    if  (alreadyAnswered){
+    if  (alreadyAnswered && !option){
         optionAlreadySelected = question.optionOne.votes.includes(authUser.id)?'optionOne':'optionTwo';
         setOption(optionAlreadySelected);
     }
